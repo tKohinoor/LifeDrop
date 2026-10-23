@@ -1,4 +1,4 @@
-# Blood Donation App
+# LifeDrop - Blood Donation App
 
 An app that removes the paperwork and phone-tag from emergency blood requests, so people in a panic can get from "we need blood" to "a donor is on the way" as fast as possible.
 
