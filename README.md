@@ -2,7 +2,7 @@
 
 An app that removes the paperwork and phone-tag from emergency blood requests, so people in a panic can get from "we need blood" to "a donor is on the way" as fast as possible.
 
-> **Status:** Phase 1 – Requestor discovery (in progress)
+> **Status:** Phase 2 – Panic Flow (in progress)
 
 ## Why this exists
 
