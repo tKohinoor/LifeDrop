@@ -41,6 +41,12 @@ Design choices: blood group first, errors only on submit, submit button never di
 - Do we need an urgency level (now / within hours / within a day)?
 - Who is allowed to see the requestor's phone number? (Phase 3)
 
-## Outcome
+## Outcome (Phase 1 closed)
 
-_To be filled in when the phase closes._
+**Success for the requestor:** a request is sent in under a minute, and they hear back from a donor or blood bank.
+
+**Assumptions (to revisit):**
+- First launch region: India. Language: English for now. Hindi is high priority next.
+- Today's real-world formalities have not been researched yet.
+
+**Next:** Phase 2 (panic flow, in progress) and Phase 4 groundwork (database).
