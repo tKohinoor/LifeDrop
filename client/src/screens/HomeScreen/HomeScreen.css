@@ -1,0 +1,90 @@
+/* Full-width backdrop with a soft pink glow in the corner */
+.home-page {
+  min-height: 100dvh;
+  background: radial-gradient(circle at 0 0, var(--pink), transparent 55%);
+}
+
+/* The content column: phone-width even on a big monitor */
+.home {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 20px 22px 24px;
+}
+
+.home__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.home__wordmark {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.home__wordmark span {
+  color: var(--red);
+}
+
+/* flex: 1 makes the hero take the free space, centring it vertically */
+.home__hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.home__title {
+  margin: 0;
+  font-size: clamp(2rem, 9vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.home__subtitle {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+.home__promise {
+  margin: 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.home__divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  color: var(--muted);
+}
+.home__divider::before,
+.home__divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #d8dbe0;
+}
+
+.home__footer {
+  margin-top: 28px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.home__link {
+  padding: 8px 4px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  color: var(--red);
+  cursor: pointer;
+}

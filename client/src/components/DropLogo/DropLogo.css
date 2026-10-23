@@ -1,0 +1,33 @@
+.drop-logo {
+  position: relative;
+  display: block;
+  filter: drop-shadow(0 10px 18px rgba(214, 20, 35, 0.25));
+}
+
+/* Only the splash turns these on */
+.drop-logo--animated {
+  animation: drop-in 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+@keyframes drop-in {
+  0%   { transform: translateY(-40px) scale(0.6); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.drop-logo--animated .drop-logo__pulse line {
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.drop-logo--animated .drop-logo__pulse line:nth-child(2) { animation-delay: 0.15s; }
+.drop-logo--animated .drop-logo__pulse line:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drop-logo--animated,
+  .drop-logo--animated .drop-logo__pulse line {
+    animation: none;
+  }
+}

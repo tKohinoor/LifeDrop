@@ -34,31 +34,6 @@
   right: -30vmax;
 }
 
-/* The drop falls in with a small bounce */
-.drop-logo {
-  position: relative;
-  width: min(42vw, 170px);
-  filter: drop-shadow(0 12px 22px rgba(214, 20, 35, 0.3));
-  animation: drop-in 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) both;
-}
-
-@keyframes drop-in {
-  0%   { transform: translateY(-40px) scale(0.6); opacity: 0; }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
-}
-
-/* The three alert strokes pulse one after another */
-.drop-logo__pulse line {
-  animation: pulse 1.2s ease-in-out infinite;
-}
-.drop-logo__pulse line:nth-child(2) { animation-delay: 0.15s; }
-.drop-logo__pulse line:nth-child(3) { animation-delay: 0.3s; }
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.25; }
-  50%      { opacity: 1; }
-}
-
 /* Wordmark and tagline fade up */
 .splash__wordmark {
   position: relative;
@@ -104,8 +79,6 @@
 
 /* Respect people who turn animations off on their phone */
 @media (prefers-reduced-motion: reduce) {
-  .drop-logo,
-  .drop-logo__pulse line,
   .splash__wordmark,
   .splash__tagline,
   .splash__spinner {
