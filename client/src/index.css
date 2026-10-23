@@ -5,6 +5,8 @@
   --muted: #4b5563;
   --pink: #fde3e5;
   --bg: #ffffff;
+  --ctl: clamp(40px, 6.2dvh, 54px); /* height of inputs and chips */
+  --gap: clamp(6px, 1.4dvh, 14px);  /* space between sections */
 }
 
 * {
@@ -17,4 +19,40 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+
+/* Form pieces shared by every screen */
+.field {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.field__label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* One fixed line under each field: shows a hint OR an error, never both */
+.field__msg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 22px;
+  margin-top: 2px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.field__msg-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.field__error {
+  font-weight: 600;
+  color: var(--red-dark);
 }

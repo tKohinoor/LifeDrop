@@ -1,0 +1,32 @@
+.screen-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 var(--gap);
+}
+
+.screen-header__back {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -10px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+.screen-header__back svg {
+  width: 26px;
+  height: 26px;
+}
+.screen-header__back:active {
+  background: var(--pink);
+}
+
+.screen-header__title {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+}

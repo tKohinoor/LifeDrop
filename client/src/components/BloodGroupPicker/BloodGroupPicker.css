@@ -1,0 +1,56 @@
+.bgp__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.bgp__head .field__label {
+  margin-bottom: 4px;
+}
+.bgp__head .field__error {
+  font-size: 0.85rem;
+}
+
+
+.bgp__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.bgp__chip {
+  min-height: var(--ctl);
+  border: 2px solid #d3d7dd;
+  border-radius: 14px;
+  background: #fff;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bgp__chip:active {
+  transform: scale(0.97);
+}
+
+.bgp__chip:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* The selected group turns solid red */
+.bgp__chip--on {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+
+/* "Not sure" stretches across the full row */
+.bgp__unsure {
+  grid-column: 1 / -1;
+  min-height: calc(var(--ctl) - 6px);
+  font-size: 0.95rem;
+  font-weight: 600;
+}

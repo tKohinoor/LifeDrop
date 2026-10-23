@@ -1,52 +1,52 @@
 .btn {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
-  border: 2px solid var(--red);
-  border-radius: 999px;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.1s ease;
-  -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    border: 2px solid var(--red);
+    border-radius: 999px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn svg {
-  width: 26px;
-  height: 26px;
-  flex: none;
+    width: 26px;
+    height: 26px;
+    flex: none;
 }
 
 .btn__label {
-  flex: 1;
-  text-align: center;
+    flex: 1;
+    text-align: center;
 }
 
 .btn:active {
-  transform: scale(0.98);
+    transform: scale(0.98);
 }
 
 /* Visible outline for keyboard users */
 .btn:focus-visible {
-  outline: 3px solid var(--ink);
-  outline-offset: 3px;
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
 }
 
 /* The one button that matters most: tall, bold, easy to hit with a thumb */
 .btn--primary {
-  min-height: 76px;
-  padding: 0 26px;
-  font-size: 1.4rem;
-  color: #fff;
-  background: linear-gradient(135deg, var(--red), var(--red-dark));
-  box-shadow: 0 10px 24px rgba(214, 20, 35, 0.35);
+    min-height: clamp(54px, 8.5dvh, 72px);
+    padding: 0 26px;
+    font-size: 1.4rem;
+    color: #fff;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    box-shadow: 0 10px 24px rgba(214, 20, 35, 0.35);
 }
 
 .btn--secondary {
-  min-height: 56px;
-  padding: 0 22px;
-  font-size: 1.1rem;
-  color: var(--red);
-  background: #fff;
+    min-height: 56px;
+    padding: 0 22px;
+    font-size: 1.1rem;
+    color: var(--red);
+    background: #fff;
 }

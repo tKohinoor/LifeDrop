@@ -88,3 +88,8 @@
   color: var(--red);
   cursor: pointer;
 }
+
+
+@media (max-height: 640px) {
+  .home__subtitle { display: none; }
+}

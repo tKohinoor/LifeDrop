@@ -1,0 +1,42 @@
+.input {
+  display: flex;
+  align-items: center;
+  min-height: var(--ctl);
+  border: 2px solid #d3d7dd;
+  border-radius: 14px;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+/* Highlight the whole box when the input inside is focused */
+.input:focus-within {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(214, 20, 35, 0.12);
+}
+
+.input--error {
+  border-color: var(--red-dark);
+}
+
+.input__prefix {
+  padding-left: 16px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.input__control {
+  flex: 1;
+  min-width: 0;
+  height: calc(var(--ctl) - 4px);
+  padding: 0 16px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 1.05rem;
+  color: var(--ink);
+  outline: none;
+}
+
+.input__prefix + .input__control {
+  padding-left: 8px;
+}
