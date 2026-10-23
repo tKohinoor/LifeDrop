@@ -24,23 +24,6 @@ To be answered next, one at a time:
 4. What counts as success for the requestor?
 5. Which regions and languages come first?
 
-## Request form (v1)
-
-| Field | Input | Rule |
-|-------|-------|------|
-| Blood group | 8 tap buttons + "Not sure" | Required |
-| Location | Auto-detected, editable text | Required; labelled "Where is blood needed?" |
-| Phone | +91 prefix, numeric keypad | 10 digits, starting 6-9 |
-| Name | Text | Required, at least 2 characters |
-
-Design choices: blood group first, errors only on submit, submit button never disabled.
-
-### Open questions (for later phases)
-- Should phone numbers be verified with an OTP? (Phase 3)
-- Does the request need a separate hospital-name field and the number of units?
-- Do we need an urgency level (now / within hours / within a day)?
-- Who is allowed to see the requestor's phone number? (Phase 3)
-
 ## Outcome (Phase 1 closed)
 
 **Success for the requestor:** a request is sent in under a minute, and they hear back from a donor or blood bank.
