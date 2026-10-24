@@ -5,9 +5,9 @@ import TextField from "../../components/TextField/TextField";
 import Button from "../../components/Button/Button";
 import { DropIcon } from "../../components/icons";
 import useDetectLocation from "../../hooks/useDetectLocation";
+import { createRequest } from "../../api/requests";
 import "./RequestScreen.css";
 
-// Messages are short on purpose: each must fit on one line on a small phone
 function validate(form) {
   const errors = {};
   if (!form.bloodGroup) errors.bloodGroup = "Choose a blood group";
@@ -21,6 +21,8 @@ function RequestScreen({ onBack, onSubmit }) {
   const [form, setForm] = useState({ bloodGroup: "", location: "", phone: "", name: "" });
   const [errors, setErrors] = useState({});
   const [coords, setCoords] = useState(null);
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const { status, detect } = useDetectLocation();
 
   function setField(field, value) {
@@ -55,21 +57,34 @@ function RequestScreen({ onBack, onSubmit }) {
     setField("phone", value.replace(/\D/g, "").slice(0, 10));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    if (sending) return; // ignore double taps
+
     const found = validate(form);
     setErrors(found);
-
-    // Everything is already on screen, so there is nothing to scroll to
     if (Object.keys(found).length > 0) return;
 
-    onSubmit({
+    const payload = {
       bloodGroup: form.bloodGroup,
       location: form.location.trim(),
       coords,
       phone: form.phone,
       name: form.name.trim(),
-    });
+    };
+
+    setSending(true);
+    setSubmitError("");
+
+    try {
+      const saved = await createRequest(payload);
+      onSubmit(saved, payload);
+    } catch (error) {
+      if (error.fieldErrors) setErrors(error.fieldErrors);
+      setSubmitError(error.message);
+    } finally {
+      setSending(false);
+    }
   }
 
   const locationHint =
@@ -134,12 +149,16 @@ function RequestScreen({ onBack, onSubmit }) {
             error={errors.name}
           />
 
-          {/* margin-top: auto in the CSS pushes this block to the bottom */}
           <div className="request__submit">
-            <Button type="submit" icon={<DropIcon />}>
-              Find Donors
+            <Button type="submit" icon={<DropIcon />} disabled={sending}>
+              {sending ? "Sending…" : submitError ? "Try Again" : "Find Donors"}
             </Button>
-            <p className="request__note">Your number is used only to connect you with donors.</p>
+
+            {submitError ? (
+              <p className="request__error" role="alert">{submitError}</p>
+            ) : (
+              <p className="request__note">Your number is used only to connect you with donors.</p>
+            )}
           </div>
         </form>
       </main>

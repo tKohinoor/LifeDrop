@@ -15,15 +15,14 @@ function ComingSoon({ title, onBack, children }) {
 }
 
 function App() {
-  // Which screen is showing: "splash" | "home" | "request" | "searching" | "donor" | "login"
+  // "splash" | "home" | "request" | "sent" | "donor" | "login"
   const [screen, setScreen] = useState("splash");
-  const [requestData, setRequestData] = useState(null);
+  const [sentRequest, setSentRequest] = useState(null);
   const goHome = () => setScreen("home");
 
-  function handleRequestSubmit(data) {
-    console.log("Blood request:", data);
-    setRequestData(data);
-    setScreen("searching");
+  function handleRequestSubmit(saved, data) {
+    setSentRequest({ saved, data });
+    setScreen("sent");
   }
 
   if (screen === "splash") return <SplashScreen onFinish={goHome} />;
@@ -32,11 +31,11 @@ function App() {
     return <RequestScreen onBack={goHome} onSubmit={handleRequestSubmit} />;
   }
 
-  if (screen === "searching") {
+  if (screen === "sent") {
     return (
-      <ComingSoon title="Finding donors…" onBack={() => setScreen("request")}>
-        <p>Here is exactly what the form collected:</p>
-        <pre>{JSON.stringify(requestData, null, 2)}</pre>
+      <ComingSoon title="Request sent" onBack={goHome}>
+        <p>Saved in the database with this id:</p>
+        <pre>{JSON.stringify(sentRequest.saved, null, 2)}</pre>
       </ComingSoon>
     );
   }

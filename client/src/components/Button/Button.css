@@ -50,3 +50,8 @@
     color: var(--red);
     background: #fff;
 }
+
+.btn:disabled {
+  opacity: 0.75;
+  cursor: progress;
+}
