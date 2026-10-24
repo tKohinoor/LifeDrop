@@ -1,0 +1,13 @@
+TOKEN = 014BR9sYEM02HLcGipJr9wRszhBeeex0JC36jrO9OXM
+
+curl http://localhost:5000/api/me -H "Authorization: Bearer $TOKEN"
+
+curl http://localhost:5000/api/me -H "Authorization: Bearer 014BR9sYEM02HLcGipJr9wRszhBeeex0JC36jrO9OXM"
+
+curl -X POST http://localhost:5000/api/requests \
+  -H "Authorization: Bearer 014BR9sYEM02HLcGipJr9wRszhBeeex0JC36jrO9OXM" -H "Content-Type: application/json" \
+  -d '{"bloodGroup":"O-","location":"Medical College, Mathura","phone":"9045945891","name":"Lame Person"}'
+
+
+curl -X POST http://localhost:5000/api/requests/REQUEST_ID/extend -H "Authorization: Bearer 014BR9sYEM02HLcGipJr9wRszhBeeex0JC36jrO9OXM"
+curl -X POST http://localhost:5000/api/requests/REQUEST_ID/fulfill -H "Authorization: Bearer 014BR9sYEM02HLcGipJr9wRszhBeeex0JC36jrO9OXM"
