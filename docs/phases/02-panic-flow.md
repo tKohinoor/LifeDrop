@@ -30,6 +30,18 @@ The fewest possible steps from "I need blood" to "a donor is on the way".
 - While sending, the button shows "Sending…" and is disabled (prevents duplicate requests).
 - On failure the form keeps all input, shows a short message under the button, and the button becomes "Try Again". Requests time out after 15 seconds.
 
+### Accounts and tickets (backend)
+- First request creates a minimal account (name, phone) and returns a secret token once. The phone stores it; the server stores only its SHA-256 hash.
+- Phones are not unique while unverified (prevents number squatting); unique once verified.
+- A ticket is active for 48 hours. Extending resets to 48 hours, capped at 7 days from creation. Max 3 active tickets per account.
+- Expiry is computed (`status = 'open' AND expires_at > now()`), no background job needed.
+- The countdown is NOT shown in the UI; `expires_at` drives reminders only.
+- Endpoints: `POST /api/requests`, `POST /api/requests/:id/extend|fulfill|cancel`, `GET /api/me`.
+
+### Known gaps (Phase 3)
+- No rate limiting yet: anonymous requests can create accounts freely.
+- Token lives in the browser; if the device is shared or the browser data is cleared, access is lost until phone verification exists.
+
 ## Open questions
 - Should phone numbers be verified with an OTP? (Phase 3)
 - Does the request need a hospital-name field, number of units, or urgency level?
