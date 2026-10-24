@@ -7,6 +7,7 @@ import { DropIcon } from "../../components/icons";
 import useDetectLocation from "../../hooks/useDetectLocation";
 import { createRequest } from "../../api/requests";
 import "./RequestScreen.css";
+import { getProfile } from "../../api/session";
 
 function validate(form) {
   const errors = {};
@@ -18,7 +19,8 @@ function validate(form) {
 }
 
 function RequestScreen({ onBack, onSubmit }) {
-  const [form, setForm] = useState({ bloodGroup: "", location: "", phone: "", name: "" });
+  const profile = getProfile();
+  const [form, setForm] = useState({ bloodGroup: "", location: "", phone: profile?.phone ?? "", name: profile?.name ?? "" });
   const [errors, setErrors] = useState({});
   const [coords, setCoords] = useState(null);
   const [sending, setSending] = useState(false);

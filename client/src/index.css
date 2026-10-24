@@ -56,3 +56,30 @@ body {
   font-weight: 600;
   color: var(--red-dark);
 }
+
+/* Compact buttons for cards and sheets */
+.tbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 2px solid var(--red);
+  border-radius: 14px;
+  background: #fff;
+  font: inherit;
+  font-weight: 700;
+  color: var(--red);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.tbtn svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+.tbtn:active { transform: scale(0.98); }
+.tbtn:disabled { opacity: 0.6; cursor: progress; }
+.tbtn:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.tbtn--fill { background: var(--red); color: #fff; }

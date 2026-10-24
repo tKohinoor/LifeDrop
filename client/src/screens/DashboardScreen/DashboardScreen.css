@@ -1,0 +1,93 @@
+.dash-page {
+  height: 100dvh;
+  background: radial-gradient(circle at 0 0, var(--pink), transparent 50%);
+}
+
+.dash {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 8px 20px max(14px, env(safe-area-inset-bottom));
+}
+
+/* Face icon left, logo centre, bell right */
+.dash__bar {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  margin-bottom: var(--gap);
+}
+
+.dash__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.dash__brand span span { color: var(--red); }
+
+.dash__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+.dash__icon svg { width: 26px; height: 26px; }
+.dash__icon:active { background: var(--pink); }
+.dash__icon:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+.dash__avatar { background: var(--pink); color: var(--red); }
+
+/* The only part of the page that scrolls, and only if there are several tickets */
+.dash__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-height: 0;
+  overflow-y: auto;
+  padding: 2px 2px 8px;
+}
+
+.dash__status {
+  margin: auto;
+  text-align: center;
+  color: var(--muted);
+}
+
+.dash__empty {
+  margin: auto 0;
+  text-align: center;
+}
+.dash__empty h1 { margin: 0 0 8px; font-size: 1.6rem; }
+.dash__empty p  { margin: 0; color: var(--muted); }
+
+.dash__nudge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 8px 14px;
+  border: 1px dashed var(--red);
+  border-radius: 14px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+}
+.dash__nudge svg { width: 24px; height: 24px; flex: none; color: var(--red); }
+
+.dash__footer { padding-top: var(--gap); }
