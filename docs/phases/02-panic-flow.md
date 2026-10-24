@@ -42,6 +42,24 @@ The fewest possible steps from "I need blood" to "a donor is on the way".
 - No rate limiting yet: anonymous requests can create accounts freely.
 - Token lives in the browser; if the device is shared or the browser data is cleared, access is lost until phone verification exists.
 
+### Dashboard (v1)
+- A phone with a saved token starts on the dashboard; otherwise on the home screen.
+- Layout: face icon (left, opens profile sheet), logo, bell (updates sheet). Ticket cards, then "New request".
+- Ticket: "Request is live", blood group, location, Extend, Fulfilled (asks to confirm: Blood arranged / Cancel request), Share on WhatsApp. No countdown shown.
+- Profile sheet: verify phone (Soon), become a donor (Soon), call ambulance 108, log out (with warning).
+- The token and name/phone live in localStorage. A new request pre-fills name and phone.
+- The dashboard reloads whenever the app comes back to the foreground.
+- Copy never claims donors were notified; donor replies are a placeholder until the donor side exists.
+
+### Known gaps
+- Logging out does not close the person's active requests on the server; they stay live until they expire.
+- Push reminders (Step 3), phone verification (Step 4), Hindi and the donor side are not built yet.
+
+## Deferred (decided to postpone)
+- **Push reminders** (permission prompt after sending, reminders at ~24h and ~44h): postponed. Needs a decision between Web Push and the Android wrapper's native push, and a scheduled job on the server.
+- **Phone verification (OTP)**: postponed. SMS costs money and India requires sender registration.
+- **Logout does not close active requests**: they stay live until they expire.
+
 ## Open questions
 - Should phone numbers be verified with an OTP? (Phase 3)
 - Does the request need a hospital-name field, number of units, or urgency level?
