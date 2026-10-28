@@ -51,6 +51,8 @@ async function migrate() {
 }
 
 migrate().catch((error) => {
-  console.error("Migration failed:", error.message);
+  // Connection failures arrive as a list of errors with an empty message
+  const details = error.errors?.map((e) => e.message || e.code).join("; ");
+  console.error("Migration failed:", error.message || details || error.code || error);
   process.exit(1);
 });

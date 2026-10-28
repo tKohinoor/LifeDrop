@@ -4,6 +4,7 @@ import cors from "cors";
 import { pool } from "./db/pool.js";
 import requestsRouter from "./routes/requests.js";
 import meRouter from "./routes/me.js";
+import donorsRouter from "./routes/donors.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,6 +24,7 @@ app.get("/api/health", async (req, res) => {
 
 app.use("/api/requests", requestsRouter);
 app.use("/api/me", meRouter);
+app.use("/api/donors", donorsRouter);
 
 app.listen(PORT, () => {
   console.log(`LifeDrop server running on http://localhost:${PORT}`);

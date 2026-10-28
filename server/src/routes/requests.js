@@ -2,6 +2,8 @@ import { Router } from "express";
 import { pool } from "../db/pool.js";
 import { newToken, hashToken } from "../auth/tokens.js";
 import { optionalAuth, requireAuth } from "../middleware/auth.js";
+import { canDonateTo } from "../matching/compatibility.js";
+import { eligibility } from "../matching/donorProfile.js";
 
 const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-", "UNKNOWN"];
 const MAX_ACTIVE_REQUESTS = 3;
@@ -140,5 +142,77 @@ function closeRequest(newStatus) {
 
 router.post("/:id/fulfill", requireAuth, closeRequest("fulfilled"));
 router.post("/:id/cancel", requireAuth, closeRequest("cancelled"));
+
+// POST /api/requests/:id/respond : a donor says "I can help"
+router.post("/:id/respond", requireAuth, async (req, res) => {
+  if (!UUID.test(req.params.id)) return res.status(404).json({ error: "Request not found" });
+
+  try {
+    const { rows: found } = await pool.query(
+      `SELECT blood_group, available,
+              to_char(last_donated_on, 'YYYY-MM-DD') AS last_donated_on
+         FROM donor_profiles WHERE account_id = $1`,
+      [req.account.id]
+    );
+    const donor = found[0];
+    if (!donor) return res.status(403).json({ error: "Register as a donor first." });
+
+    if (!eligibility(donor).eligible) {
+      return res.status(403).json({ error: "You are not available to donate right now." });
+    }
+
+    const { rows } = await pool.query(
+      `SELECT r.id, r.blood_group, r.account_id, a.name, a.phone
+         FROM blood_requests r
+         JOIN accounts a ON a.id = r.account_id
+        WHERE r.id = $1 AND r.status = 'open' AND r.expires_at > now()`,
+      [req.params.id]
+    );
+    const request = rows[0];
+    if (!request) return res.status(404).json({ error: "This request is no longer open." });
+
+    if (request.account_id === req.account.id) {
+      return res.status(400).json({ error: "You can't respond to your own request." });
+    }
+    if (!canDonateTo(donor.blood_group).includes(request.blood_group)) {
+      return res.status(409).json({ error: "Your blood group is not a match for this request." });
+    }
+
+    // Responding again after withdrawing simply reactivates the earlier row
+    await pool.query(
+      `INSERT INTO donor_responses (request_id, donor_id) VALUES ($1, $2)
+       ON CONFLICT (request_id, donor_id) DO UPDATE SET withdrawn_at = NULL`,
+      [request.id, req.account.id]
+    );
+
+    // The donor has committed, so now they get the requestor's contact details
+    res.status(201).json({
+      requestId: request.id,
+      requester: { name: request.name, phone: request.phone },
+    });
+  } catch (error) {
+    console.error("Failed to respond to request:", error);
+    res.status(500).json({ error: "Something went wrong. Please try again." });
+  }
+});
+
+// POST /api/requests/:id/withdraw : a donor changes their mind
+router.post("/:id/withdraw", requireAuth, async (req, res) => {
+  if (!UUID.test(req.params.id)) return res.status(404).json({ error: "Request not found" });
+
+  try {
+    const { rows } = await pool.query(
+      `UPDATE donor_responses SET withdrawn_at = now()
+        WHERE request_id = $1 AND donor_id = $2 AND withdrawn_at IS NULL
+        RETURNING id`,
+      [req.params.id, req.account.id]
+    );
+    if (!rows[0]) return res.status(404).json({ error: "No active response found." });
+    res.json({ withdrawn: true });
+  } catch (error) {
+    console.error("Failed to withdraw response:", error);
+    res.status(500).json({ error: "Something went wrong. Please try again." });
+  }
+});
 
 export default router;
