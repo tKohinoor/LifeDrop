@@ -90,3 +90,20 @@
 @media (prefers-reduced-motion: reduce) {
   .ticket__dot { animation: none; }
 }
+
+.ticket__replies { margin: 10px 0 14px; }
+.ticket__replies-title {
+  margin: 0 0 8px;
+  font-weight: 800;
+  color: #1f7a3d;
+}
+.reply {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid #eceef1;
+}
+.reply__who { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.reply__call { min-height: 44px; text-decoration: none; }

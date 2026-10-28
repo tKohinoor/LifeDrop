@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { extendRequest, fulfillRequest, cancelRequest } from "../../api/requests";
-import { ClockIcon, ShareIcon } from "../icons";
+import { ClockIcon, ShareIcon, PhoneIcon } from "../icons";
 import "./TicketCard.css";
 
 function TicketCard({ request, account, onChanged }) {
@@ -42,7 +42,29 @@ function TicketCard({ request, account, onChanged }) {
 
       <h2 className="ticket__title">{title}</h2>
       <p className="ticket__where">{request.location}</p>
-      <p className="ticket__hint">Donor replies will show here.</p>
+      {request.responses.length > 0 ? (
+        <div className="ticket__replies">
+          <p className="ticket__replies-title">
+            {request.responses.length === 1
+              ? "1 donor can help"
+              : `${request.responses.length} donors can help`}
+          </p>
+          {request.responses.map((donor) => (
+            <div className="reply" key={`${donor.phone}-${donor.respondedAt}`}>
+              <div className="reply__who">
+                <strong>{donor.name}</strong>
+                {donor.bloodGroup && <span> · {donor.bloodGroup}</span>}
+              </div>
+              <a className="tbtn tbtn--fill reply__call" href={`tel:+91${donor.phone}`}>
+                <PhoneIcon />
+                Call
+              </a>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="ticket__hint">Donor replies will show here.</p>
+      )}
 
       {confirming ? (
         <div className="ticket__confirm">

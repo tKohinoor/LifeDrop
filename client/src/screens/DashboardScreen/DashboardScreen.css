@@ -91,3 +91,42 @@
 .dash__nudge svg { width: 24px; height: 24px; flex: none; color: var(--red); }
 
 .dash__footer { padding-top: var(--gap); }
+
+/* My requests | Help others */
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-bottom: var(--gap);
+  padding: 4px;
+  border-radius: 14px;
+  background: #eef0f3;
+}
+.tabs__tab {
+  min-height: 42px;
+  border: 0;
+  border-radius: 11px;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+}
+.tabs__tab--on {
+  background: #fff;
+  color: var(--red);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Bell sheet */
+.updates { margin: 0; padding: 0; list-style: none; }
+.updates__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid #eceef1;
+}
+.updates__time { font-size: 0.85rem; color: var(--muted); }
+.updates .tbtn { flex: none; text-decoration: none; }

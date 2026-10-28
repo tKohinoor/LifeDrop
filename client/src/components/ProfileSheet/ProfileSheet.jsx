@@ -3,7 +3,12 @@ import Sheet from "../Sheet/Sheet";
 import { FaceIcon, ShieldIcon, UsersIcon, PhoneIcon, LogoutIcon } from "../icons";
 import "./ProfileSheet.css";
 
-function ProfileSheet({ open, onClose, account, onLogout }) {
+function donorTag(donor) {
+  if (donor.eligible) return "Active";
+  return donor.reason === "paused" ? "Paused" : "Resting";
+}
+
+function ProfileSheet({ open, onClose, account, donor, onBecomeDonor, onLogout }) {
   const [confirming, setConfirming] = useState(false);
 
   function close() {
@@ -33,19 +38,29 @@ function ProfileSheet({ open, onClose, account, onLogout }) {
             <span className="menu__tag">Soon</span>
           </div>
         </li>
+
         <li>
-          <div className="menu__row menu__row--soon">
-            <UsersIcon />
-            <span className="menu__label">Become a donor</span>
-            <span className="menu__tag">Soon</span>
-          </div>
+          {donor ? (
+            <div className="menu__row">
+              <UsersIcon />
+              <span className="menu__label">Donor ({donor.bloodGroup})</span>
+              <span className="menu__tag">{donorTag(donor)}</span>
+            </div>
+          ) : (
+            <button type="button" className="menu__row" onClick={onBecomeDonor}>
+              <UsersIcon />
+              <span className="menu__label">Become a donor</span>
+            </button>
+          )}
         </li>
+
         <li>
           <a className="menu__row" href="tel:108">
             <PhoneIcon />
             <span className="menu__label">Call ambulance (108)</span>
           </a>
         </li>
+
         <li>
           {confirming ? (
             <div className="logout-confirm">

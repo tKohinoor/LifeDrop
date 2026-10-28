@@ -52,3 +52,18 @@ export const getMe = () => call("/me");
 export const extendRequest = (id) => call(`/requests/${id}/extend`, { method: "POST" });
 export const fulfillRequest = (id) => call(`/requests/${id}/fulfill`, { method: "POST" });
 export const cancelRequest = (id) => call(`/requests/${id}/cancel`, { method: "POST" });
+
+export async function registerDonor(payload) {
+  const result = await call("/donors", { method: "POST", body: payload });
+
+  // New phone: the server hands us a token. Existing account: no token comes back.
+  if (result.token) saveToken(result.token);
+  if (payload.name && payload.phone) saveProfile({ name: payload.name, phone: payload.phone });
+
+  return result.donor;
+}
+
+export const getDonorRequests = () => call("/donors/requests");
+export const updateDonor = (changes) => call("/donors/me", { method: "PATCH", body: changes });
+export const respondToRequest = (id) => call(`/requests/${id}/respond`, { method: "POST" });
+export const withdrawResponse = (id) => call(`/requests/${id}/withdraw`, { method: "POST" });

@@ -1,0 +1,28 @@
+.check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--ctl);
+  padding: 0 14px;
+  border: 2px solid #d3d7dd;
+  border-radius: 14px;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.check input {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  accent-color: var(--red);
+}
+
+.check:focus-within {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(214, 20, 35, 0.12);
+}
+
+.check--error {
+  border-color: var(--red-dark);
+}

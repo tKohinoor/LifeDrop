@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import SplashScreen from "./components/SplashScreen/SplashScreen";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import RequestScreen from "./screens/RequestScreen/RequestScreen";
+import DonorScreen from "./screens/DonorScreen/DonorScreen";
 import DashboardScreen from "./screens/DashboardScreen/DashboardScreen";
 import { getToken } from "./api/session";
 
@@ -17,10 +18,10 @@ function ComingSoon({ title, onBack }) {
 }
 
 function App() {
-  // "splash" | "home" | "request" | "dashboard" | "donor" | "login"
+  // "splash" | "home" | "request" | "donor" | "dashboard" | "login"
   const [screen, setScreen] = useState("splash");
+  const [dashTab, setDashTab] = useState("mine"); // which tab the dashboard opens on
 
-  // A phone that already has an account starts on the dashboard, a new one on home.
   const goStart = useCallback(
     () => setScreen(getToken() ? "dashboard" : "home"),
     []
@@ -30,19 +31,43 @@ function App() {
   if (screen === "splash") return <SplashScreen onFinish={goStart} />;
 
   if (screen === "request") {
-    return <RequestScreen onBack={goStart} onSubmit={() => setScreen("dashboard")} />;
+    return (
+      <RequestScreen
+        onBack={goStart}
+        onSubmit={() => {
+          setDashTab("mine");
+          setScreen("dashboard");
+        }}
+      />
+    );
+  }
+
+  if (screen === "donor") {
+    return (
+      <DonorScreen
+        onBack={goStart}
+        onDone={() => {
+          setDashTab("help"); // a new donor lands on "Help others"
+          setScreen("dashboard");
+        }}
+      />
+    );
   }
 
   if (screen === "dashboard") {
     return (
       <DashboardScreen
-        onNewRequest={() => setScreen("request")}
+        initialTab={dashTab}
+        onNewRequest={() => {
+          setDashTab("mine");
+          setScreen("request");
+        }}
+        onBecomeDonor={() => setScreen("donor")}
         onSignedOut={goHome}
       />
     );
   }
 
-  if (screen === "donor") return <ComingSoon title="Become a Donor" onBack={goStart} />;
   if (screen === "login") return <ComingSoon title="Log In" onBack={goStart} />;
 
   return (

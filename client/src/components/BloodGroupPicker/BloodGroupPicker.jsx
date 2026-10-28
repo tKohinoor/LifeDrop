@@ -2,13 +2,18 @@ import "./BloodGroupPicker.css";
 
 const GROUPS = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
 
-function BloodGroupPicker({ value, onChange, error }) {
+function BloodGroupPicker({
+  value,
+  onChange,
+  error,
+  label = "Blood group needed",
+  allowUnknown = true,
+}) {
   return (
     <div className="field" role="radiogroup" aria-labelledby="bgp-label">
-      {/* Label on the left, error (if any) on the right, same row */}
       <div className="bgp__head">
         <span className="field__label" id="bgp-label">
-          Blood group needed
+          {label}
         </span>
         {error && (
           <span className="field__error" role="alert">
@@ -31,15 +36,17 @@ function BloodGroupPicker({ value, onChange, error }) {
           </button>
         ))}
 
-        <button
-          type="button"
-          role="radio"
-          aria-checked={value === "UNKNOWN"}
-          className={`bgp__chip bgp__unsure ${value === "UNKNOWN" ? "bgp__chip--on" : ""}`}
-          onClick={() => onChange("UNKNOWN")}
-        >
-          Not sure (hospital can confirm)
-        </button>
+        {allowUnknown && (
+          <button
+            type="button"
+            role="radio"
+            aria-checked={value === "UNKNOWN"}
+            className={`bgp__chip bgp__unsure ${value === "UNKNOWN" ? "bgp__chip--on" : ""}`}
+            onClick={() => onChange("UNKNOWN")}
+          >
+            Not sure (hospital can confirm)
+          </button>
+        )}
       </div>
     </div>
   );

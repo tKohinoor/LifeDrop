@@ -1,0 +1,45 @@
+.donor-page {
+  height: 100dvh;
+  overflow-y: auto; /* emergency fallback only */
+  background: radial-gradient(circle at 100% 0, var(--pink), transparent 45%);
+}
+
+.donor {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 8px 20px max(14px, env(safe-area-inset-bottom));
+}
+
+.donor__form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.donor__submit {
+  margin-top: auto;
+  padding-top: var(--gap);
+}
+
+.donor__note {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.donor__error {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--red-dark);
+}
+
+@media (max-height: 620px) {
+  .donor__note { display: none; }
+}
