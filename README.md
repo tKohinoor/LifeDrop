@@ -22,7 +22,7 @@ When a patient needs blood urgently, the family is stressed, time is short, and 
 | 1 | Who and what: users and core problem | Done | [phase 1](docs/phases/01-requestor-discovery.md) |
 | 2 | The panic flow: request-to-donor journey | In progress (requestor flow working; push deferred) | [phase 2](docs/phases/02-panic-flow.md) |
 | 3 | Trust and safety | Not started | – |
-| 4 | Data model and matching | Not started | – |
+| 4 | Data model and matching | In progress | – |
 | 5 | Design: screens and visual identity | Not started | – |
 | 6 | Build: prototype, then real app | Not started | – |
 

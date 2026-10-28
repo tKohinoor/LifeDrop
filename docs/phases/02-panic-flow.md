@@ -68,4 +68,4 @@ The fewest possible steps from "I need blood" to "a donor is on the way".
 - **Decided (v1):** if sending fails, show an error and let the person retry manually. Auto-retry and saving the request on the phone are planned as a later step.
 
 ## Outcome
-_To be filled in when the phase closes._
+Donor side: see [phase 4](04-data-and-matching.md).
